@@ -1,0 +1,24 @@
+nc N
+np M
+p1 id_c1 id_c2
+p2 id_c1 id_c2
+...
+pM id_c1 id_c2
+na P
+c_a0 id_c
+c_a1 id_c
+...
+c_aP id_c
+em O
+r x número do round
+e 0 id_a1 id_a2 Assinante a1 Liga(0) p/ assinante a2
+e 1 id_a Assinante "a" Desliga(1)
+e 2 id_a Assinante "a" Retoma(2) ligação
+e 3 a id_a id_c Inclusão(3) de linha do tipo assinante-central (a)
+e 3 c id_c1 id_c2 Inclusão(3) de linha do tipo central-central (c)
+e 4 a id_a id_c Exclusão(4) de linha do tipo assinante-central (a)
+e 4 c id_c1 id_c2 Exclusão(4) de linha do tipo central-central (c)
+e 5 a id_a id_c Suspensão(5) de linha do tipo assinante-central (a)
+e 5 c id_c1 id_c2 Suspensão(5) de linha do tipo central-central (c)
+e 6 a id_a id_c Reativação(6) de linha do tipo assinante-central (a)
+e 6 c id_c1 id_c2 Reativação(6) de linha do tipo central-central (c)
