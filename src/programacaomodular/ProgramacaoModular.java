@@ -5,6 +5,8 @@
  */
 package programacaomodular;
 
+import structure.ManagementNework;
+
 /**
  *
  * @author bruno
@@ -15,7 +17,8 @@ public class ProgramacaoModular {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        ManagementNework management = new ManagementNework();
+        management.init();
     }
     
 }
