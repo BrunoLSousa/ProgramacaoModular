@@ -1,0 +1,11 @@
+0,Calling
+1,TurnOff
+2,Reconnect
+3a,ADDLineSC
+3c,ADDLineCC
+4a,RemoveLineSC
+4c,RemoveLineCC
+5a,SuspendLineSC
+5c,SuspendLineCC
+6a,ReactiveLineSC
+6c,ReactiveLineCC
