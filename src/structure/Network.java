@@ -29,7 +29,7 @@ public class Network {
     
     private void buildCentral(int amount){
         for(int index = 0; index < amount; index++){
-            Central newCentral = new Central(index);
+            Central newCentral = new Central(index, this);
             this.central.add(newCentral);
         }
     }
@@ -44,29 +44,57 @@ public class Network {
     public void connectCentralToCentral(int indexA, int indexB){
         Central centralA = this.central.get(indexA);
         Central centralB = this.central.get(indexB);
-        centralA.addConnectionCentral(centralB);
-        centralB.addConnectionCentral(centralA);
+        centralA.addConnectionCentral(indexB);
+        centralB.addConnectionCentral(indexA);
     }
     
     public void connectSubscriberToCentral(int indexSubscriber, int indexCentral){
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
         s.setCentral(c);
-        c.addConnectionSubscriber(s);
-    }
-    
-    public void removeSubscriberFromCentral(int indexSubscriber, int indexCentral){
-        Subscriber s = this.subscribers.get(indexSubscriber);
-        Central c = this.central.get(indexCentral);
-        c.removeConnectionSubscriber(s);
-        s.removeCentral();
+        c.addConnectionSubscriber(indexSubscriber);
     }
     
     public void removeCentralFromCentral(int indexCentralA, int indexCentralB){
         Central cA = this.central.get(indexCentralA);
         Central cB = this.central.get(indexCentralB);
-        cA.removeConnectionCentral(cB);
-        cB.removeConnectionCentral(cA);
+        cA.removeConnectionCentral(indexCentralB);
+        cB.removeConnectionCentral(indexCentralA);
+    }
+    
+    public void removeSubscriberFromCentral(int indexSubscriber, int indexCentral){
+        Subscriber s = this.subscribers.get(indexSubscriber);
+        Central c = this.central.get(indexCentral);
+        c.removeConnectionSubscriber(indexSubscriber);
+        s.removeCentral();
+    }
+    
+    public void suspendCentralFromCentral(int indexCentralA, int indexCentralB){
+        Central cA = this.central.get(indexCentralA);
+        Central cB = this.central.get(indexCentralB);
+        cA.suspendConnectionCentral(indexCentralB);
+        cB.suspendConnectionCentral(indexCentralA);
+    }
+    
+    public void suspendSubscriberFromCentral(int indexSubscriber, int indexCentral){
+        Subscriber s = this.subscribers.get(indexSubscriber);
+        Central c = this.central.get(indexCentral);
+        c.suspendConnectionSubscriber(indexSubscriber);
+        s.suspendLine();
+    }
+    
+    public void reactiveCentralToCentral(int indexCentralA, int indexCentralB){
+        Central cA = this.central.get(indexCentralA);
+        Central cB = this.central.get(indexCentralB);
+        cA.reactiveConnectionCentral(indexCentralB);
+        cB.reactiveConnectionCentral(indexCentralA);
+    }
+    
+    public void reactiveSubscriberToCentral(int indexSubscriber, int indexCentral){
+        Subscriber s = this.subscribers.get(indexSubscriber);
+        Central c = this.central.get(indexCentral);
+        c.reactiveConnectionCentral(indexSubscriber);
+        s.reactiveLine();
     }
     
     public void printConnectionsCentral(){
@@ -82,4 +110,22 @@ public class Network {
         }
     }
     
+    public Subscriber getSubscriberByID(int idSubscriber){
+        for(Subscriber s : this.subscribers){
+            if(s.getId() == idSubscriber){
+                return s;
+            }
+        }
+        return null;
+    }
+    
+    public Central getCentralByID(int idCentral){
+        for(Central c : this.central){
+            if(c.getId() == idCentral){
+                return c;
+            }
+        }
+        return null;
+    }
+        
 }

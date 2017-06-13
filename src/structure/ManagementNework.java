@@ -16,9 +16,9 @@ public class ManagementNework {
     private Network network;
     private InputReader stream;
     
-    public ManagementNework(){
+    public ManagementNework(InputReader stream){
         this.network = new Network();
-        this.stream = new InputReader("input_file.txt");
+        this.stream = stream;
     }
     
     public void init(){
@@ -47,6 +47,8 @@ public class ManagementNework {
         }
     }
     
-    
+    public Network getNetwork(){
+        return this.network;
+    }
     
 }

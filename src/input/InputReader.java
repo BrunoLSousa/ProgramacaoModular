@@ -119,6 +119,10 @@ public class InputReader {
         }
     }
     
+    public String[] parseEvent(int index){
+        return this.events.get(index).split(" ");
+    }
+    
     public int getNumberOfCentral(){
         return this.numberCentral;
     }

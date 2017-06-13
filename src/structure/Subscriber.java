@@ -28,6 +28,14 @@ public class Subscriber{
         this.central = null;
     }
     
+    public void suspendLine(){
+        this.status = Status.SUSPENDED;
+    }
+    
+    public void reactiveLine(){
+        setFree();
+    }
+    
     public Central getCentral(){
         return this.central;
     }
@@ -36,12 +44,16 @@ public class Subscriber{
         return (this.status == Status.FREE);
     }
     
-    public void changeStatus(){
-        if(this.status == Status.FREE){
-            this.status = Status.BUSY;
-        }else{
-            this.status = Status.FREE;
-        }
+    public boolean isBusy(){
+        return (this.status == Status.BUSY);
+    }
+    
+    public void setFree(){
+        this.status = Status.FREE;
+    }
+    
+    public void setBusy(){
+        this.status = Status.BUSY;
     }
     
     public void printCentral(){
@@ -55,7 +67,7 @@ public class Subscriber{
     }
     
     private enum Status{
-        BUSY, FREE;
+        BUSY, FREE, SUSPENDED;
     }
     
 }
