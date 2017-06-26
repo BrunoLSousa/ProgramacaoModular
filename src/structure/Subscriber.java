@@ -14,6 +14,7 @@ public class Subscriber{
     private int idSubscriber;
     private Central central;
     private Status status;
+    private Subscriber currentComunication;
 
     public Subscriber(int id) {
         this.idSubscriber = id;
@@ -56,11 +57,23 @@ public class Subscriber{
         this.status = Status.BUSY;
     }
     
-    public void printCentral(){
-        System.out.println("Connection Subscriber " + this.idSubscriber + " with Central");
-        System.out.println(this.central.getId() + "  ");
-        System.out.println("");
+    public void setCurrentCommunication(Subscriber subscriber){
+        this.currentComunication = subscriber;
     }
+    
+    public void finishComunication(){
+        setCurrentCommunication(null);
+    }
+    
+    public boolean hasComunication(Subscriber subscriber){
+        return (subscriber.getId() == this.currentComunication.getId());
+    }
+    
+//    public void printCentral(){
+//        System.out.println("Connection Subscriber " + this.idSubscriber + " with Central");
+//        System.out.println(this.central.getId() + "  ");
+//        System.out.println("");
+//    }
     
     public int getId(){
         return this.idSubscriber;

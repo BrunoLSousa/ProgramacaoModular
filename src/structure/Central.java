@@ -37,6 +37,16 @@ public class Central {
     public void addConnectionSubscriber(Integer idSubscriber) {
         this.subscribersConnected.add(idSubscriber);
     }
+    
+    public void removeCentral(int idCentral){
+        removeConnectionCentral(idCentral);
+        removeCentralSuspend(idCentral);
+    }
+    
+    public void removeSubscriber(int idSubscriber){
+        removeConnectionSubscriber(idSubscriber);
+        removeSubscriberSuspend(idSubscriber);
+    }
 
     public void removeConnectionCentral(Integer idCentral) {
         if (hasCentralConnection(idCentral)) {
@@ -47,6 +57,18 @@ public class Central {
     public void removeConnectionSubscriber(Integer idSubscriber) {
         if (hasSubscriberConnection(idSubscriber)) {
             this.subscribersConnected.remove(idSubscriber);
+        }
+    }
+    
+    private void removeCentralSuspend(int idCentral){
+        if(hasCentralSuspend(idCentral)){
+            this.centralSuspended.remove(idCentral);
+        }
+    }
+    
+    private void removeSubscriberSuspend(int idSubscriber){
+        if(hasSubscriberSuspend(idCentral)){
+            this.subscribersSuspended.remove(idCentral);
         }
     }
 
@@ -78,7 +100,7 @@ public class Central {
         }
     }
 
-    private boolean hasCentralConnection(Integer idCentral) {
+    public boolean hasCentralConnection(Integer idCentral) {
         for (Integer id : this.centralConnected) {
             if (id == idCentral) {
                 return true;
@@ -87,7 +109,7 @@ public class Central {
         return false;
     }
 
-    private boolean hasSubscriberConnection(Integer idSubscriber) {
+    public boolean hasSubscriberConnection(Integer idSubscriber) {
         for (Integer id : this.subscribersConnected) {
             if (id == idSubscriber) {
                 return true;
@@ -96,7 +118,7 @@ public class Central {
         return false;
     }
 
-    private boolean hasCentralSuspend(Integer idCentral) {
+    public boolean hasCentralSuspend(Integer idCentral) {
         for (Integer id : this.centralSuspended) {
             if (id == idCentral) {
                 return true;
@@ -105,7 +127,7 @@ public class Central {
         return false;
     }
 
-    private boolean hasSubscriberSuspend(Integer idSubscriber) {
+    public boolean hasSubscriberSuspend(Integer idSubscriber) {
         for (Integer id : this.subscribersSuspended) {
             if (id == idSubscriber) {
                 return true;
@@ -118,21 +140,25 @@ public class Central {
         return (hasSubscriberConnection(idSubscriber) || hasSubscriberSuspend(idSubscriber));
     }
 
-    public void printCentral() {
-        System.out.println("Connection Central " + this.idCentral + " with others central");
-        for (Integer id : this.centralConnected) {
-            System.out.print(id + "  ");
-        }
-        System.out.println("");
+    public boolean hasCentral(Integer idCentral) {
+        return (hasCentralConnection(idCentral) || hasCentralSuspend(idCentral));
     }
 
-    public void printSubscriber() {
-        System.out.println("Connection Central " + this.idCentral + " with subscribers");
-        for (Integer id : this.subscribersConnected) {
-            System.out.print(id + "  ");
-        }
-        System.out.println("");
-    }
+//    public void printCentral() {
+//        System.out.println("Connection Central " + this.idCentral + " with others central");
+//        for (Integer id : this.centralConnected) {
+//            System.out.print(id + "  ");
+//        }
+//        System.out.println("");
+//    }
+
+//    public void printSubscriber() {
+//        System.out.println("Connection Central " + this.idCentral + " with subscribers");
+//        for (Integer id : this.subscribersConnected) {
+//            System.out.print(id + "  ");
+//        }
+//        System.out.println("");
+//    }
 
     public List<Integer> getCentralConnected() {
         return this.centralConnected;
