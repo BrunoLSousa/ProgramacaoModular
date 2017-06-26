@@ -1,23 +1,14 @@
 /*
- * Classe que inicia a Simulação de um Sistema de Telefonia
- * 
- * arg[0] Modo de Execução 
- *     0 - Console Mode 
- *     1 - FileMode
- * arg[1] Nome do Arquivo de Entrada
- * Exemplo1: 0
- * Exemplo2: 1 input_file.txt
- *  
-*/
-package model;
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package programacaomodular;
 
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
-
-import java.util.ArrayList;
+import input.InputReader;
+import input.ReaderToken;
+import structure.ManagementNework;
+import structure.ManagementRounds;
 
 /**
  *
@@ -25,53 +16,16 @@ import java.util.ArrayList;
  */
 public class Run {
     
-    
-    private static int nc;
-    private static int np;
-    private static int pn;
-    private static int na;
-    private static int c_an;
-    private static int em;
-    private static int round;
-    private static String e;
-    private static ArrayList<String> in;
-    
-    private static void fileMode(String fileName) {
-
-        EventHandler handler = new EventHandler();
-        InputReader input = new InputReader(fileName);
-        in = input.getInput();
-
-        //in.forEach(s -> System.out.println(s)); 
-
-        for(String s : in.subList(0, in.size())){ 
-            System.out.println(s);
-            handler.newEvent(s);
-        }
-        
-    }
-
-//    private static void ConsoleMode() {
-//        EventHandler handler = new EventHandler();
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-// 
-//        while(handler.getState()){           
-//            try {
-//
-//                String line = br.readLine();
-//                handler.newEvent(line);
-//
-//            } catch (IOException ex) {
-//                Logger.getLogger(Run.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        
-//    }
-    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-
-        fileMode("input_file.txt");
-        
-        
+        InputReader input = new InputReader("input_file.txt");
+        ReaderToken token = new ReaderToken("event_token.txt");
+        ManagementNework managementNetwork = new ManagementNework(input);
+        managementNetwork.init();
+        ManagementRounds managementRound = new ManagementRounds(input, managementNetwork.getNetwork(), token);
+        managementRound.init();
     }
+    
 }

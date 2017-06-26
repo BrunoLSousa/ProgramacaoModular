@@ -7,8 +7,8 @@ package programacaomodular;
 
 import input.InputReader;
 import input.ReaderToken;
-import structure.ManagementEvents;
 import structure.ManagementNework;
+import structure.ManagementRounds;
 
 /**
  *
@@ -24,8 +24,8 @@ public class ProgramacaoModular {
         ReaderToken token = new ReaderToken("event_token.txt");
         ManagementNework managementNetwork = new ManagementNework(input);
         managementNetwork.init();
-        ManagementEvents managementEvents = new ManagementEvents(input, managementNetwork.getNetwork(), token);
-        managementEvents.init();
+        ManagementRounds managementRound = new ManagementRounds(input, managementNetwork.getNetwork(), token);
+        managementRound.init();
     }
     
 }
