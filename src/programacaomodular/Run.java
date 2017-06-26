@@ -5,6 +5,8 @@
  */
 package programacaomodular;
 
+import account.AccountByRound;
+import account.IssueAccount;
 import input.InputReader;
 import input.ReaderToken;
 import structure.ManagementNework;
@@ -26,6 +28,8 @@ public class Run {
         managementNetwork.init();
         ManagementRounds managementRound = new ManagementRounds(input, managementNetwork.getNetwork(), token);
         managementRound.init();
+        IssueAccount account = new AccountByRound(input.getIssueAccount(), managementRound.getRounds(), input.getNumberOfSubscribers());
+        account.issue();
     }
     
 }
