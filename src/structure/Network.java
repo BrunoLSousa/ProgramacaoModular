@@ -44,7 +44,7 @@ public class Network {
     public boolean connectCentralToCentral(int indexA, int indexB) {
         Central centralA = this.central.get(indexA);
         Central centralB = this.central.get(indexB);
-        if (centralA.hasCentralConnection(indexB)) {
+        if (!centralA.hasCentral(indexB)) {
             centralA.addConnectionCentral(indexB);
             centralB.addConnectionCentral(indexA);
             return true;
@@ -55,7 +55,7 @@ public class Network {
     public boolean connectSubscriberToCentral(int indexSubscriber, int indexCentral) {
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
-        if (c.hasSubscriber(indexSubscriber)) {
+        if (!c.hasSubscriber(indexSubscriber)) {
             s.setCentral(c);
             c.addConnectionSubscriber(indexSubscriber);
             return true;
@@ -129,18 +129,19 @@ public class Network {
         return false;
     }
 
-//    public void printConnectionsCentral(){
-//        for(Central c : this.central){
-//            c.printCentral();
-//            c.printSubscriber();
-//        }
-//    }
-//    
-//    public void printConnectionsSubscriber(){
-//        for(Subscriber s : this.subscribers){
-//            s.printCentral();
-//        }
-//    }
+    public void printConnectionsCentral(){
+        for(Central c : this.central){
+            c.printCentral();
+            c.printSubscriber();
+        }
+    }
+    
+    public void printConnectionsSubscriber(){
+        for(Subscriber s : this.subscribers){
+            s.printCentral();
+        }
+    }
+    
     public Subscriber getSubscriberByID(int idSubscriber) {
         for (Subscriber s : this.subscribers) {
             if (s.getId() == idSubscriber) {

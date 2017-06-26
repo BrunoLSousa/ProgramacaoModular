@@ -144,21 +144,21 @@ public class Central {
         return (hasCentralConnection(idCentral) || hasCentralSuspend(idCentral));
     }
 
-//    public void printCentral() {
-//        System.out.println("Connection Central " + this.idCentral + " with others central");
-//        for (Integer id : this.centralConnected) {
-//            System.out.print(id + "  ");
-//        }
-//        System.out.println("");
-//    }
+    public void printCentral() {
+        System.out.println("Connection Central " + this.idCentral + " with others central");
+        for (Integer id : this.centralConnected) {
+            System.out.print(id + "  ");
+        }
+        System.out.println("");
+    }
 
-//    public void printSubscriber() {
-//        System.out.println("Connection Central " + this.idCentral + " with subscribers");
-//        for (Integer id : this.subscribersConnected) {
-//            System.out.print(id + "  ");
-//        }
-//        System.out.println("");
-//    }
+    public void printSubscriber() {
+        System.out.println("Connection Central " + this.idCentral + " with subscribers");
+        for (Integer id : this.subscribersConnected) {
+            System.out.print(id + "  ");
+        }
+        System.out.println("");
+    }
 
     public List<Integer> getCentralConnected() {
         return this.centralConnected;

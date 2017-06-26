@@ -55,6 +55,7 @@ public class ManagementRounds {
             if (content[0].equals("r")) {
                 int timeRound = Integer.parseInt(content[1]);
                 round = new Round(timeRound);
+                this.rounds.add(round);
             } else if (content[0].equals("e")) {
                 String key = getTokenEvent(content);
                 EventHandle e = getEvent(key, round, content);
@@ -169,6 +170,10 @@ public class ManagementRounds {
         return null;
     }
 
+    public List<Round> getRounds(){
+        return this.rounds;
+    }
+    
     public EventHandle getlastEvent() {
         int size = this.rounds.size();
         Round round = this.rounds.get(size - 1);

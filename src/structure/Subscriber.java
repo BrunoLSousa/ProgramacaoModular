@@ -69,11 +69,11 @@ public class Subscriber{
         return (subscriber.getId() == this.currentComunication.getId());
     }
     
-//    public void printCentral(){
-//        System.out.println("Connection Subscriber " + this.idSubscriber + " with Central");
-//        System.out.println(this.central.getId() + "  ");
-//        System.out.println("");
-//    }
+    public void printCentral(){
+        System.out.println("Connection Subscriber " + this.idSubscriber + " with Central");
+        System.out.println(this.central.getId() + "  ");
+        System.out.println("");
+    }
     
     public int getId(){
         return this.idSubscriber;
