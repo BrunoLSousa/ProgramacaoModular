@@ -5,7 +5,7 @@
  */
 package event;
 
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Subscriber;
 
 /**
@@ -17,8 +17,8 @@ public class Reconnect extends EventHandle implements EventSubscriber {
     private Subscriber subscriber;
     public static final int LIMIT_TO_RECCONECT = 90;
 
-    public Reconnect(ManagementEvents managementEvents, Subscriber subscriber, int round) {
-        super(managementEvents, round);
+    public Reconnect(ManagementRounds managementRound, Subscriber subscriber, Round round) {
+        super(managementRound, round);
         this.subscriber = subscriber;
     }
 
@@ -35,30 +35,34 @@ public class Reconnect extends EventHandle implements EventSubscriber {
     }
 
     private void reestablishConnection() {
-        Calling lastCallingSubscriber = this.managementEvents.lastCalling(this.subscriber);
-        TurnOff lastTurnOffSubscriber = this.managementEvents.lastTurnOff(this.subscriber);
+        Calling lastCallingSubscriber = this.managementRound.lastCalling(this.subscriber);
+        TurnOff lastTurnOffSubscriber = this.managementRound.lastTurnOff(this.subscriber);
         try{
-            if (lastTurnOffSubscriber.getRound() > lastCallingSubscriber.getRound()) {
-//                Calling call = (Calling) lastCallingSubscriber.getEvent();
+            if (lastTurnOffSubscriber.timeRound() > lastCallingSubscriber.timeRound()) {
                 if (lastCallingSubscriber.getReceiver().getId() == this.subscriber.getId()) {
-                    int timeReconnection = this.getRound();
-                    int time = timeReconnection - lastTurnOffSubscriber.getRound();
-//                    Round lastRound = this.managementEvents.lastRound();
-//                    int time = lastRound.getRound() - roundLastTurnOffSubscriber.getRound();
+                    int timeReconnection = this.timeRound();
+                    int time = timeReconnection - lastTurnOffSubscriber.timeRound();
                     if(time < LIMIT_TO_RECCONECT){
                         lastCallingSubscriber.getCaller().setBusy();
+                        lastCallingSubscriber.getCaller().setCurrentCommunication(lastCallingSubscriber.getReceiver());
                         lastCallingSubscriber.getReceiver().setBusy();
+                        lastCallingSubscriber.getReceiver().setCurrentCommunication(lastCallingSubscriber.getCaller());
+                        this.sucess = true;
                         System.out.println("Ligação entre assinante " + lastCallingSubscriber.getCaller().getId() + " e " + lastCallingSubscriber.getReceiver().getId() + " reconectada.");
                     }else{
+                        this.sucess = false;
                         System.out.println("Tempo de reconexão esgotado!");
                     }
                 } else {
+                    this.sucess = false;
                     System.out.println("Não é possível retormar ligação, porque este assinante foi o responsável pela discagem.");
                 }
             } else {
+                this.sucess = false;
                 System.out.println("Esse assinante encontra-se com uma ligação em curso no momento.");
             }
         }catch(NullPointerException e){
+            this.sucess = false;
             System.err.println("O assinante não possui eventos de ligar ou desligar!");
         }
     }

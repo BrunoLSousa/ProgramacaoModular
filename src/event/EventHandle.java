@@ -5,7 +5,7 @@
  */
 package event;
 
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 
 /**
  *
@@ -13,20 +13,23 @@ import structure.ManagementEvents;
  */
 public abstract class EventHandle {
     
-    protected ManagementEvents managementEvents;
-    private final int round;
+    protected ManagementRounds managementRound;
+    protected boolean sucess;
+    private final Round round;
     
-    public EventHandle(ManagementEvents managements, int round){
-        this.managementEvents = managements;
+    public EventHandle(ManagementRounds managements, Round round){
+        this.managementRound = managements;
         this.round = round;
     }
     
     public abstract void trigger();
     
-    public int getRound(){
-        return this.round;
+    public int timeRound(){
+        return this.round.getValue();
     }
     
-//    public void computePulse();
+    public boolean isSucess(){
+        return this.sucess;
+    }
     
 }

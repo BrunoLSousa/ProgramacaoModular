@@ -6,7 +6,7 @@
 package event;
 
 import structure.Central;
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
 
@@ -14,14 +14,14 @@ import structure.Subscriber;
  *
  * @author bruno
  */
-public class SuspendLineCC extends EventHandle implements EventSystem{
-    
+public class SuspendLineCC extends EventHandle implements EventSystem {
+
     protected Network network;
     private Central centralA;
     private Central centralB;
 
-    public SuspendLineCC(ManagementEvents managementEvents, int round, Network network, Central centralA, Central centralB) {
-        super(managementEvents, round);
+    public SuspendLineCC(ManagementRounds managementRound, Round round, Network network, Central centralA, Central centralB) {
+        super(managementRound, round);
         this.network = network;
         this.centralA = centralA;
         this.centralB = centralB;
@@ -29,10 +29,14 @@ public class SuspendLineCC extends EventHandle implements EventSystem{
 
     @Override
     public void trigger() {
-        this.network.suspendCentralFromCentral(this.centralA.getId(), this.centralB.getId());
-        System.out.println("Central " + centralA.getId() + " suspendida da Central " + centralB.getId());
+        this.sucess = this.network.suspendCentralFromCentral(this.centralA.getId(), this.centralB.getId());
+        if (sucess) {
+            System.out.println("Central " + centralA.getId() + " suspendida da Central " + centralB.getId());
+        } else {
+            System.err.println("Central " + centralA.getId() + " não está conectada ou ativa à Central " + centralB.getId());
+        }
     }
-    
+
     @Override
     public boolean hasSubscriber(Subscriber subscriber) {
         return false;
@@ -42,5 +46,5 @@ public class SuspendLineCC extends EventHandle implements EventSystem{
     public boolean hasCentral(Central central) {
         return ((central.getId() == this.centralA.getId()) || (central.getId() == this.centralB.getId()));
     }
-    
+
 }

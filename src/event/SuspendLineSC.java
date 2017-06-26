@@ -6,7 +6,7 @@
 package event;
 
 import structure.Central;
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
 
@@ -14,14 +14,14 @@ import structure.Subscriber;
  *
  * @author bruno
  */
-public class SuspendLineSC extends EventHandle implements EventSystem{
+public class SuspendLineSC extends EventHandle implements EventSystem {
 
     protected Network network;
     private Central central;
     private Subscriber subscriber;
-    
-    public SuspendLineSC(ManagementEvents managementEvents, int round, Network network, Subscriber subscriber, Central central) {
-        super(managementEvents, round);
+
+    public SuspendLineSC(ManagementRounds managementRound, Round round, Network network, Subscriber subscriber, Central central) {
+        super(managementRound, round);
         this.network = network;
         this.subscriber = subscriber;
         this.central = central;
@@ -29,8 +29,12 @@ public class SuspendLineSC extends EventHandle implements EventSystem{
 
     @Override
     public void trigger() {
-        this.network.suspendSubscriberFromCentral(this.subscriber.getId(), this.central.getId());
-        System.out.println("Assinante " + this.subscriber.getId() + " suspendida da Central " + central.getId());
+        this.sucess = this.network.suspendSubscriberFromCentral(this.subscriber.getId(), this.central.getId());
+        if (sucess) {
+            System.out.println("Assinante " + this.subscriber.getId() + " suspendida da Central " + central.getId());
+        } else {
+            System.err.println("Assinante " + this.subscriber.getId() + " não está conectado ou ativo à Central " + central.getId());
+        }
     }
 
     @Override
@@ -42,5 +46,5 @@ public class SuspendLineSC extends EventHandle implements EventSystem{
     public boolean hasCentral(Central central) {
         return (central.getId() == this.central.getId());
     }
-    
+
 }

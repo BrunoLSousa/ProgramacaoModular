@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import search.DepthFirstSearch;
 import search.Visitor;
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Subscriber;
 
 /**
@@ -22,8 +22,8 @@ public class Calling extends EventHandle implements EventSubscriber{
     private Subscriber subscriberReceiver;
     private List<Integer> route;
     
-    public Calling(ManagementEvents managementEvents, int round, Subscriber subscriberCaller, Subscriber subscriberReceiver){
-        super(managementEvents, round);
+    public Calling(ManagementRounds managementRound, Round round, Subscriber subscriberCaller, Subscriber subscriberReceiver){
+        super(managementRound, round);
         this.subscriberCaller = subscriberCaller;
         this.subscriberReceiver = subscriberReceiver;
         this.route = new ArrayList<>();
@@ -62,10 +62,14 @@ public class Calling extends EventHandle implements EventSubscriber{
     
     private void startCall(){
         if(this.subscriberReceiver.isFree()){
+            this.subscriberCaller.setCurrentCommunication(subscriberReceiver);
             this.subscriberCaller.setBusy();
+            this.subscriberReceiver.setCurrentCommunication(subscriberCaller);
             this.subscriberReceiver.setBusy();
+            this.sucess = true;
             System.out.println("Ligação Completada!");
         }else{
+            this.sucess = false;
             System.out.println("Linha Ocupada.");
         }
     }
