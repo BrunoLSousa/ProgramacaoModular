@@ -39,7 +39,6 @@ public class TurnOff extends EventHandle implements EventSubscriber {
                 this.sucess = true;
                 System.out.println("Ligação Desligada pelo Assinante " + this.subscriber.getId() + "!");
             } else {
-                this.sucess = false;
                 System.out.println("Assinante " + this.subscriber.getId() + " não possui nenhum evento Ligar ativo no momento!");
             }
         } catch (NullPointerException e) {
@@ -53,6 +52,10 @@ public class TurnOff extends EventHandle implements EventSubscriber {
     
     private void putPhoneOnHook() {
         System.out.println("Telefone Colocado no Ganho...");
+    }
+    
+    public Subscriber getSubscriber(){
+        return this.subscriber;
     }
 
     @Override

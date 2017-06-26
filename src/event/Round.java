@@ -75,6 +75,10 @@ public class Round {
         return this.events.get(size - 1);
     }
     
+    public EventHandle getEventByIndex(int index){
+        return this.events.get(index);
+    }
+    
     public int getValue(){
         return this.value;
     }

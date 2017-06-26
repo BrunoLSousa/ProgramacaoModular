@@ -69,7 +69,6 @@ public class Calling extends EventHandle implements EventSubscriber{
             this.sucess = true;
             System.out.println("Ligação Completada!");
         }else{
-            this.sucess = false;
             System.out.println("Linha Ocupada.");
         }
     }
