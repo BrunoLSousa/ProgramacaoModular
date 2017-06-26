@@ -7,9 +7,8 @@ package event.factory;
 
 import event.*;
 import structure.Central;
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Network;
-import structure.Subscriber;
 
 /**
  *
@@ -20,28 +19,15 @@ public class FactorySuspendLineCC extends FactoryEventChain{
     private Central centralA;
     private Central centralB;
 
-    public FactorySuspendLineCC(ManagementEvents managementEvents, Network network, String code) {
-        super(managementEvents, network, code);
+    public FactorySuspendLineCC(ManagementRounds managementRound, Network network, String code) {
+        super(managementRound, network, code);
     }
 
-//    public FactorySuspendLineCC(ManagementEvents managementEvents, int round, Network network, Central centralA, Central centralB) {
-//        this.managementEvents = managementEvents;
-//        this.round = round;
-//        this.network = network;
-//        this.centralA = centralA;
-//        this.centralB = centralB;
-//    }
-//
-//    @Override
-//    public EventHandle createEvent() {
-//        return new SuspendLineCC(managementEvents, round, network, centralA, centralB);
-//    }
-
     @Override
-    public EventHandle create(int round, String[] infoEvent) {
+    public EventHandle create(Round round, String[] infoEvent) {
         this.centralA = this.network.getCentralByID(Integer.parseInt(infoEvent[3]));
         this.centralB = this.network.getCentralByID(Integer.parseInt(infoEvent[4]));
-        return new SuspendLineCC(managementEvents, round, network, centralA, centralB);
+        return new SuspendLineCC(managementRound, round, network, centralA, centralB);
     }
     
 }

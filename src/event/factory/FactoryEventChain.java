@@ -6,7 +6,8 @@
 package event.factory;
 
 import event.EventHandle;
-import structure.ManagementEvents;
+import event.Round;
+import structure.ManagementRounds;
 import structure.Network;
 
 /**
@@ -15,43 +16,17 @@ import structure.Network;
  */
 public abstract class FactoryEventChain {
 
-    protected ManagementEvents managementEvents;
+    protected ManagementRounds managementRound;
     protected Network network;
-//    private FactoryEventChain next;
     protected final String code;
-//    private EventHandle product;
     
-    public FactoryEventChain(ManagementEvents managementEvents, Network network, String code){
-        this.managementEvents = managementEvents;
+    public FactoryEventChain(ManagementRounds managementRound, Network network, String code){
+        this.managementRound = managementRound;
         this.network = network;
         this.code = code;
-//        this.next = null;
-//        this.product = null;
     }
     
-//    public EventHandle createEvent(String code, int round, String[] infoEvent){
-//        setProduct(code, round, infoEvent);
-//        return product;
-//    }
-//    
-//    private void setProduct(String code, int round, String[] infoEvent){
-//        if(isCode(code)){
-//            this.product = create(round, infoEvent);
-//        }else{
-//            if(this.next != null)
-//                this.next.createEvent(code, round, infoEvent);
-//        }
-//    }
-    
-    public abstract EventHandle create(int round, String[] infoEvent);
-    
-//    public void setNext(FactoryEventChain factory){
-//        if (next == null) {
-//            this.next = factory;
-//        } else {
-//            this.next.setNext(factory);
-//        }
-//    }
+    public abstract EventHandle create(Round round, String[] infoEvent);
     
     public boolean isCode(String code){
         return (code.equals(this.code));

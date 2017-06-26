@@ -6,7 +6,7 @@
 package event.factory;
 
 import event.*;
-import structure.ManagementEvents;
+import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
 
@@ -18,25 +18,14 @@ public class FactoryReconnect extends FactoryEventChain {
 
     private Subscriber subscriber;
 
-    public FactoryReconnect(ManagementEvents managementEvents, Network network, String code) {
-        super(managementEvents, network, code);
+    public FactoryReconnect(ManagementRounds managementRound, Network network, String code) {
+        super(managementRound, network, code);
     }
 
-//    public FactoryReconnect(ManagementEvents managementEvents, int round, Subscriber subscriber) {
-//        this.managementEvents = managementEvents;
-//        this.round = round;
-//        this.subscriber = subscriber;
-//    }
-//
-//    @Override
-//    public EventHandle createEvent() {
-//        return new Reconnect(managementEvents, subscriber, round);
-//    }
-
     @Override
-    public EventHandle create(int round, String[] infoEvent) {
+    public EventHandle create(Round round, String[] infoEvent) {
         this.subscriber = this.network.getSubscriberByID(Integer.parseInt(infoEvent[2]));
-        return new Reconnect(managementEvents, subscriber, round);
+        return new Reconnect(managementRound, subscriber, round);
     }
 
 }
