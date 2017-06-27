@@ -25,6 +25,7 @@ import input.InputReader;
 import input.ReaderToken;
 import java.util.ArrayList;
 import java.util.List;
+import view.Output;
 
 /**
  *
@@ -48,7 +49,7 @@ public class ManagementRounds {
 
     }
 
-    public void init() {
+    public void init(Output output) {
         Round round = new Round(0);
         for (int i = 0; i < this.stream.getEvents().size(); i++) {
             String[] content = this.stream.parseEvent(i);
@@ -58,17 +59,17 @@ public class ManagementRounds {
                 this.rounds.add(round);
             } else if (content[0].equals("e")) {
                 String key = getTokenEvent(content);
-                EventHandle e = getEvent(key, round, content);
+                EventHandle e = getEvent(key, round, content, output);
                 round.addEvent(e);
                 e.trigger();
             }
         }
     }
     
-    private EventHandle getEvent(String key, Round round, String[] content) {
+    private EventHandle getEvent(String key, Round round, String[] content, Output output) {
         for (FactoryEventChain f : this.factoryEventsChain) {
             if (f.isCode(key)) {
-                return f.create(round, content);
+                return f.create(round, content, output);
             }
         }
         return null;
