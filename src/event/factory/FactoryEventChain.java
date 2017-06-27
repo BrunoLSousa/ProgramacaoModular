@@ -9,6 +9,7 @@ import event.EventHandle;
 import event.Round;
 import structure.ManagementRounds;
 import structure.Network;
+import view.Output;
 
 /**
  *
@@ -26,7 +27,7 @@ public abstract class FactoryEventChain {
         this.code = code;
     }
     
-    public abstract EventHandle create(Round round, String[] infoEvent);
+    public abstract EventHandle create(Round round, String[] infoEvent, Output output);
     
     public boolean isCode(String code){
         return (code.equals(this.code));

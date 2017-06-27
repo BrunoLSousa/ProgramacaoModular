@@ -11,6 +11,7 @@ import search.DepthFirstSearch;
 import search.Visitor;
 import structure.ManagementRounds;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -22,8 +23,8 @@ public class Calling extends EventHandle implements EventSubscriber{
     private Subscriber subscriberReceiver;
     private List<Integer> route;
     
-    public Calling(ManagementRounds managementRound, Round round, Subscriber subscriberCaller, Subscriber subscriberReceiver){
-        super(managementRound, round);
+    public Calling(ManagementRounds managementRound, Round round, Subscriber subscriberCaller, Subscriber subscriberReceiver, Output output){
+        super(managementRound, round, output);
         this.subscriberCaller = subscriberCaller;
         this.subscriberReceiver = subscriberReceiver;
         this.route = new ArrayList<>();
@@ -31,6 +32,7 @@ public class Calling extends EventHandle implements EventSubscriber{
     
     @Override
     public void trigger() {
+        output.addNewEvent("Iniciar Ligação entre o Assinante " + subscriberCaller.getId() + " e o Assinante " + subscriberReceiver.getId());
         if(this.subscriberCaller.isFree()){
             takePhone();
             diskNumber();
@@ -38,26 +40,26 @@ public class Calling extends EventHandle implements EventSubscriber{
                 searchReceiver();
                 startCall();
             } catch (NullPointerException e) {
-                System.err.println("Assinante não encontrado!!!");
+                output.addNewSignal("Assinante não encontrado!!!");
             }
         }else{
-            System.out.println("Não foi possível completar chamada.");
+            output.addNewSignal("Não foi possível completar chamada.");
         }
     }
     
     private void takePhone(){
-        System.out.println("Telefone Retirado do Ganho...");
+        output.addNewSignal("Telefone Retirado do Gancho...");
     }
     
     private void diskNumber(){
-        System.out.println("Discando Número...");
+        output.addNewSignal("Discando Número...");
     }
     
     private void searchReceiver() throws NullPointerException{
-        System.out.println("Completando Ligação...");
+        output.addNewSignal("Completando Ligação...");
         Visitor dfs = new DepthFirstSearch(this.subscriberCaller, this.subscriberReceiver);
         this.route = dfs.search();
-        System.out.println("Rota da Ligação: " + printRoute());
+        output.addNewSignal("Rota da Ligação: " + printRoute());
     }
     
     private void startCall(){
@@ -67,9 +69,9 @@ public class Calling extends EventHandle implements EventSubscriber{
             this.subscriberReceiver.setCurrentCommunication(subscriberCaller);
             this.subscriberReceiver.setBusy();
             this.sucess = true;
-            System.out.println("Ligação Completada!");
+            output.addNewSignal("Ligação Completada!");
         }else{
-            System.out.println("Linha Ocupada.");
+            output.addNewSignal("Linha Ocupada.");
         }
     }
 

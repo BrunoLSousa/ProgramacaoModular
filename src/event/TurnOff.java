@@ -7,6 +7,7 @@ package event;
 
 import structure.ManagementRounds;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -16,13 +17,14 @@ public class TurnOff extends EventHandle implements EventSubscriber {
 
     private Subscriber subscriber;
 
-    public TurnOff(ManagementRounds managementRound, Round round, Subscriber subscriber) {
-        super(managementRound, round);
+    public TurnOff(ManagementRounds managementRound, Round round, Subscriber subscriber, Output output) {
+        super(managementRound, round, output);
         this.subscriber = subscriber;
     }
 
     @Override
     public void trigger() {
+        output.addNewEvent("Assinante " + subscriber.getId() + " solicitou um evento de desligar uma ligação");
         turnOffPhone();
         putPhoneOnHook();
     }
@@ -37,12 +39,12 @@ public class TurnOff extends EventHandle implements EventSubscriber {
                 call.getReceiver().setFree();
                 call.getReceiver().finishComunication();
                 this.sucess = true;
-                System.out.println("Ligação Desligada pelo Assinante " + this.subscriber.getId() + "!");
+                output.addNewSignal("Ligação Desligada pelo Assinante " + this.subscriber.getId() + "!");
             } else {
-                System.out.println("Assinante " + this.subscriber.getId() + " não possui nenhum evento Ligar ativo no momento!");
+                output.addNewSignal("Assinante " + this.subscriber.getId() + " não possui nenhum evento Ligar ativo no momento!");
             }
         } catch (NullPointerException e) {
-            System.err.println("Não há ligações referente ao assinante " + this.subscriber.getId());
+            output.addNewSignal("Não há ligações referente ao assinante " + this.subscriber.getId());
         }
     }
 
@@ -51,7 +53,7 @@ public class TurnOff extends EventHandle implements EventSubscriber {
     }
     
     private void putPhoneOnHook() {
-        System.out.println("Telefone Colocado no Ganho...");
+        output.addNewSignal("Telefone Colocado no Ganho...");
     }
     
     public Subscriber getSubscriber(){

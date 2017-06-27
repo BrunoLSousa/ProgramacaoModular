@@ -9,6 +9,7 @@ import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -20,8 +21,8 @@ public class ReactiveLineSC extends EventHandle implements EventSystem {
     private Central central;
     private Subscriber subscriber;
 
-    public ReactiveLineSC(ManagementRounds managementRound, Round round, Network network, Central central, Subscriber subscriber) {
-        super(managementRound, round);
+    public ReactiveLineSC(ManagementRounds managementRound, Round round, Network network, Central central, Subscriber subscriber, Output output) {
+        super(managementRound, round, output);
         this.network = network;
         this.central = central;
         this.subscriber = subscriber;
@@ -29,11 +30,12 @@ public class ReactiveLineSC extends EventHandle implements EventSystem {
 
     @Override
     public void trigger() {
+        output.addNewEvent("Reativar Assinante " + subscriber.getId() + " à Central " + central.getId());
         this.sucess = this.network.reactiveSubscriberToCentral(this.subscriber.getId(), this.central.getId());
         if (sucess) {
-            System.out.println("Assinante " + this.subscriber.getId() + " reativado com Central " + this.central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " reativado com Central " + this.central.getId());
         } else {
-            System.err.println("Conexão entre Assinante " + this.subscriber.getId() + " e Central " + this.central.getId() + " não se encontra suspensa");
+            output.addNewSignal("Conexão entre Assinante " + this.subscriber.getId() + " e Central " + this.central.getId() + " não se encontra suspensa");
         }
     }
 

@@ -9,6 +9,7 @@ import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -20,8 +21,8 @@ public class ADDLineSC extends EventHandle implements EventSystem {
     private Central central;
     private Subscriber subscriber;
 
-    public ADDLineSC(ManagementRounds managementRound, Round round, Network network, Central central, Subscriber subscriber) {
-        super(managementRound, round);
+    public ADDLineSC(ManagementRounds managementRound, Round round, Network network, Central central, Subscriber subscriber, Output output) {
+        super(managementRound, round, output);
         this.network = network;
         this.central = central;
         this.subscriber = subscriber;
@@ -29,11 +30,12 @@ public class ADDLineSC extends EventHandle implements EventSystem {
 
     @Override
     public void trigger() {
+        output.addNewEvent("Conectar Assinante " + subscriber.getId() + " à Central " + central.getId());
         this.sucess = this.network.connectSubscriberToCentral(this.subscriber.getId(), this.central.getId());
         if (sucess) {
-            System.out.println("Assinante " + this.subscriber.getId() + " conectada com Central " + this.central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " conectada com Central " + this.central.getId());
         } else {
-            System.err.println("Assinante " + this.subscriber.getId() + " já possui conexão com Central " + this.central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " já possui conexão com Central " + this.central.getId());
         }
     }
 

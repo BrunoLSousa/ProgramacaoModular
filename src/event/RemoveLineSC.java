@@ -9,6 +9,7 @@ import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -20,8 +21,8 @@ public class RemoveLineSC extends EventHandle implements EventSystem {
     private Central central;
     private Subscriber subscriber;
 
-    public RemoveLineSC(ManagementRounds managementRound, Round round, Network network, Subscriber subscriber, Central central) {
-        super(managementRound, round);
+    public RemoveLineSC(ManagementRounds managementRound, Round round, Network network, Subscriber subscriber, Central central, Output output) {
+        super(managementRound, round, output);
         this.network = network;
         this.central = central;
         this.subscriber = subscriber;
@@ -29,11 +30,12 @@ public class RemoveLineSC extends EventHandle implements EventSystem {
 
     @Override
     public void trigger() {
+        output.addNewEvent("Remover Assinante " + subscriber.getId() + " da Central " + central.getId());
         this.sucess = this.network.removeSubscriberFromCentral(this.subscriber.getId(), this.central.getId());
         if (sucess) {
-            System.out.println("Assinante " + this.subscriber.getId() + " removido da Central " + central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " removido da Central " + central.getId());
         } else {
-            System.err.println("Conexão não existente entre o Assinante " + this.subscriber.getId() + " e a Central " + central.getId());
+            output.addNewSignal("Conexão não existente entre o Assinante " + this.subscriber.getId() + " e a Central " + central.getId());
         }
     }
 

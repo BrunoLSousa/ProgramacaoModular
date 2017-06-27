@@ -6,6 +6,7 @@
 package event;
 
 import structure.ManagementRounds;
+import view.Output;
 
 /**
  *
@@ -14,12 +15,14 @@ import structure.ManagementRounds;
 public abstract class EventHandle {
     
     protected ManagementRounds managementRound;
+    protected Output output;
     protected boolean sucess;
     private final Round round;
     
-    public EventHandle(ManagementRounds managements, Round round){
+    public EventHandle(ManagementRounds managements, Round round, Output output){
         this.managementRound = managements;
         this.round = round;
+        this.output = output;
     }
     
     public abstract void trigger();

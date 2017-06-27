@@ -9,6 +9,7 @@ import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -20,8 +21,8 @@ public class SuspendLineSC extends EventHandle implements EventSystem {
     private Central central;
     private Subscriber subscriber;
 
-    public SuspendLineSC(ManagementRounds managementRound, Round round, Network network, Subscriber subscriber, Central central) {
-        super(managementRound, round);
+    public SuspendLineSC(ManagementRounds managementRound, Round round, Network network, Subscriber subscriber, Central central, Output output) {
+        super(managementRound, round, output);
         this.network = network;
         this.subscriber = subscriber;
         this.central = central;
@@ -29,11 +30,12 @@ public class SuspendLineSC extends EventHandle implements EventSystem {
 
     @Override
     public void trigger() {
+        output.addNewEvent("Suspender Assinante " + subscriber.getId() + " da Central " + central.getId());
         this.sucess = this.network.suspendSubscriberFromCentral(this.subscriber.getId(), this.central.getId());
         if (sucess) {
-            System.out.println("Assinante " + this.subscriber.getId() + " suspendida da Central " + central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " suspendida da Central " + central.getId());
         } else {
-            System.err.println("Assinante " + this.subscriber.getId() + " não está conectado ou ativo à Central " + central.getId());
+            output.addNewSignal("Assinante " + this.subscriber.getId() + " não está conectado ou ativo à Central " + central.getId());
         }
     }
 

@@ -9,6 +9,7 @@ import event.*;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -23,9 +24,9 @@ public class FactoryReconnect extends FactoryEventChain {
     }
 
     @Override
-    public EventHandle create(Round round, String[] infoEvent) {
+    public EventHandle create(Round round, String[] infoEvent, Output output) {
         this.subscriber = this.network.getSubscriberByID(Integer.parseInt(infoEvent[2]));
-        return new Reconnect(managementRound, subscriber, round);
+        return new Reconnect(managementRound, subscriber, round, output);
     }
 
 }

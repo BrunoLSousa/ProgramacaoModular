@@ -9,6 +9,7 @@ import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -20,8 +21,8 @@ public class ReactiveLineCC extends EventHandle implements EventSystem {
     private Central centralA;
     private Central centralB;
 
-    public ReactiveLineCC(ManagementRounds managementRound, Round round, Network network, Central centralA, Central centralB) {
-        super(managementRound, round);
+    public ReactiveLineCC(ManagementRounds managementRound, Round round, Network network, Central centralA, Central centralB, Output output) {
+        super(managementRound, round, output);
         this.network = network;
         this.centralA = centralA;
         this.centralB = centralB;
@@ -29,11 +30,12 @@ public class ReactiveLineCC extends EventHandle implements EventSystem {
 
     @Override
     public void trigger() {
+        output.addNewEvent("Reativar Central " + centralA.getId() + " à Central " + centralB.getId());
         this.sucess = this.network.reactiveCentralToCentral(centralA.getId(), centralB.getId());
         if (sucess) {
-            System.out.println("Central " + centralA.getId() + " reativada com Central " + centralB.getId());
+            output.addNewSignal("Central " + centralA.getId() + " reativada com Central " + centralB.getId());
         } else {
-            System.err.println("Conexão entre Central " + centralA.getId() + " e Central " + centralB.getId() + " não se encontra suspensa");
+            output.addNewSignal("Conexão entre Central " + centralA.getId() + " e Central " + centralB.getId() + " não se encontra suspensa");
         }
     }
 

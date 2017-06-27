@@ -11,6 +11,7 @@ import search.DepthFirstSearch;
 import search.Visitor;
 import structure.ManagementRounds;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -23,14 +24,15 @@ public class Reconnect extends EventHandle implements EventSubscriber {
     public static final int LIMIT_TO_RECCONECT = 90;
     private List<Integer> route;
 
-    public Reconnect(ManagementRounds managementRound, Subscriber subscriber, Round round) {
-        super(managementRound, round);
+    public Reconnect(ManagementRounds managementRound, Subscriber subscriber, Round round, Output output) {
+        super(managementRound, round, output);
         this.subscriberReconnect = subscriber;
         this.route = new ArrayList<>();
     }
 
     @Override
     public void trigger() {
+        output.addNewEvent("Assinante " + subscriberReconnect.getId() + " deseja reconectar sua última ligação");
         if (this.subscriberReconnect.isFree()) {
             takePhone();
             reestablishConnection();
@@ -38,7 +40,7 @@ public class Reconnect extends EventHandle implements EventSubscriber {
     }
 
     private void takePhone() {
-        System.out.println("Telefone Retirado do Ganho...");
+        output.addNewSignal("Telefone Retirado do Ganho...");
     }
 
     private void reestablishConnection() {
@@ -54,24 +56,24 @@ public class Reconnect extends EventHandle implements EventSubscriber {
                         searchReceiver();
                         reconnect();
                     } else {
-                        System.out.println("Tempo de reconexão esgotado!");
+                        output.addNewSignal("Tempo de reconexão esgotado!");
                     }
                 } else {
-                    System.out.println("Não é possível retormar ligação, porque este assinante foi o responsável pela discagem.");
+                    output.addNewSignal("Não é possível retormar ligação, porque este assinante foi o responsável pela discagem.");
                 }
             } else {
-                System.out.println("Esse assinante encontra-se com uma ligação em curso no momento.");
+                output.addNewSignal("Esse assinante encontra-se com uma ligação em curso no momento.");
             }
         } catch (NullPointerException e) {
-            System.err.println("O assinante não possui eventos de ligar ou desligar!");
+            output.addNewSignal("O assinante não possui eventos de ligar ou desligar!");
         }
     }
 
     private void searchReceiver() throws NullPointerException {
-        System.out.println("Verificando Rota...");
+        output.addNewSignal("Verificando Rota...");
         Visitor dfs = new DepthFirstSearch(this.subscriberReconnect, this.subscriberReceiver);
         this.route = dfs.search();
-        System.out.println("Rota Encontrada: " + printRoute());
+        output.addNewSignal("Rota Encontrada: " + printRoute());
     }
 
     public Subscriber getSubscriberReconnect() {
@@ -89,9 +91,9 @@ public class Reconnect extends EventHandle implements EventSubscriber {
             this.subscriberReconnect.setBusy();
             this.subscriberReconnect.setCurrentCommunication(subscriberReceiver);
             this.sucess = true;
-            System.out.println("Ligação entre assinante " + this.subscriberReconnect.getId() + " e " + this.subscriberReceiver.getId() + " reconectada.");
+            output.addNewSignal("Ligação entre assinante " + this.subscriberReconnect.getId() + " e " + this.subscriberReceiver.getId() + " reconectada.");
         } else {
-            System.out.println("Linha Ocupada.");
+            output.addNewSignal("Linha Ocupada.");
         }
     }
 

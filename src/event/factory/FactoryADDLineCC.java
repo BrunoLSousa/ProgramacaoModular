@@ -9,6 +9,7 @@ import event.*;
 import structure.Central;
 import structure.ManagementRounds;
 import structure.Network;
+import view.Output;
 
 /**
  *
@@ -24,10 +25,10 @@ public class FactoryADDLineCC extends FactoryEventChain{
     }
 
     @Override
-    public EventHandle create(Round round, String[] infoEvent) {
+    public EventHandle create(Round round, String[] infoEvent, Output output) {
         this.centralA = this.network.getCentralByID(Integer.parseInt(infoEvent[3]));
         this.centralB = this.network.getCentralByID(Integer.parseInt(infoEvent[4]));
-        return new ADDLineCC(managementRound, round, network, centralA, centralB);
+        return new ADDLineCC(managementRound, round, network, centralA, centralB, output);
     }
     
 }
