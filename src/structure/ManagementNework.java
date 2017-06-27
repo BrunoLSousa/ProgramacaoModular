@@ -25,8 +25,8 @@ public class ManagementNework {
         this.network.buildNetwork(this.stream.getNumberOfCentral(), this.stream.getNumberOfSubscribers());
         createConnectionToCentral();
         createConnectionToSubscriber();
-        this.network.printConnectionsCentral();
-        this.network.printConnectionsSubscriber();
+//        this.network.printConnectionsCentral();
+//        this.network.printConnectionsSubscriber();
     }
     
     private void createConnectionToCentral(){

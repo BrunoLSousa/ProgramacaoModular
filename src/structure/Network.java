@@ -129,18 +129,18 @@ public class Network {
         return false;
     }
 
-    public void printConnectionsCentral(){
-        for(Central c : this.central){
-            c.printCentral();
-            c.printSubscriber();
-        }
-    }
-    
-    public void printConnectionsSubscriber(){
-        for(Subscriber s : this.subscribers){
-            s.printCentral();
-        }
-    }
+//    public void printConnectionsCentral(){
+//        for(Central c : this.central){
+//            c.printCentral();
+//            c.printSubscriber();
+//        }
+//    }
+//    
+//    public void printConnectionsSubscriber(){
+//        for(Subscriber s : this.subscribers){
+//            s.printCentral();
+//        }
+//    }
     
     public Subscriber getSubscriberByID(int idSubscriber) {
         for (Subscriber s : this.subscribers) {
