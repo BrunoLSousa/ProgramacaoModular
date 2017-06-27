@@ -13,6 +13,7 @@ import event.Round;
 import event.TurnOff;
 import java.util.List;
 import structure.Subscriber;
+import view.Output;
 
 /**
  *
@@ -22,8 +23,8 @@ public class AccountByRound extends IssueAccount {
 
     private int[][] issueManager;
 
-    public AccountByRound(int period, List<Round> rounds, int amountSubscribers) {
-        super(period, rounds, amountSubscribers);
+    public AccountByRound(int period, List<Round> rounds, int amountSubscribers, Output output) {
+        super(period, rounds, amountSubscribers, output);
         this.issueManager = new int[amountSubscribers][2];
     }
 
@@ -40,7 +41,8 @@ public class AccountByRound extends IssueAccount {
             }
             storeIssue(i);
         }
-        printAccounts();
+        output.setIssuesAccount(accounts);
+//        printAccounts();
     }
 
     private void countPulse(int idRound) {

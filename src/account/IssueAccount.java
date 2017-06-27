@@ -7,6 +7,7 @@ package account;
 
 import event.Round;
 import java.util.List;
+import view.Output;
 
 /**
  *
@@ -17,10 +18,12 @@ public abstract class IssueAccount {
     protected int period;
     protected List<Round> rounds;
     protected Account[][] accounts;
+    protected Output output;
 
-    public IssueAccount(int period, List<Round> rounds, int amountSubscribers) {
+    public IssueAccount(int period, List<Round> rounds, int amountSubscribers, Output output) {
         this.period = period;
         this.rounds = rounds;
+        this.output = output;
         createAccounts(amountSubscribers);
     }
 
@@ -29,7 +32,7 @@ public abstract class IssueAccount {
         this.accounts = new Account[issues][amountSubscribers];
         for (int i = 0; i < issues; i++) {
             for (int j = 0; j < amountSubscribers; j++) {
-                this.accounts[i][j] = new Account(i);
+                this.accounts[i][j] = new Account(j);
             }
         }
     }
