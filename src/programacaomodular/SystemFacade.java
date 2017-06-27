@@ -11,7 +11,7 @@ import input.InputReader;
 import input.ReaderToken;
 import structure.ManagementNework;
 import structure.ManagementRounds;
-import view.Output;
+import output.Output;
 
 /**
  *

@@ -7,7 +7,7 @@ package event;
 
 import structure.ManagementRounds;
 import structure.Subscriber;
-import view.Output;
+import output.Output;
 
 /**
  *

@@ -7,7 +7,7 @@ package account;
 
 import event.Round;
 import java.util.List;
-import view.Output;
+import output.Output;
 
 /**
  *

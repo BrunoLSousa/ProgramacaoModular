@@ -13,7 +13,7 @@ import event.Round;
 import event.TurnOff;
 import java.util.List;
 import structure.Subscriber;
-import view.Output;
+import output.Output;
 
 /**
  *

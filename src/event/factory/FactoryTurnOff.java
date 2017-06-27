@@ -9,7 +9,7 @@ import event.*;
 import structure.ManagementRounds;
 import structure.Network;
 import structure.Subscriber;
-import view.Output;
+import output.Output;
 
 /**
  *

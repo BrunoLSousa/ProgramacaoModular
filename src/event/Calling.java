@@ -11,7 +11,7 @@ import search.DepthFirstSearch;
 import search.Visitor;
 import structure.ManagementRounds;
 import structure.Subscriber;
-import view.Output;
+import output.Output;
 
 /**
  *

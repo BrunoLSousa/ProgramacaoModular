@@ -9,7 +9,7 @@ import event.EventHandle;
 import event.Round;
 import structure.ManagementRounds;
 import structure.Network;
-import view.Output;
+import output.Output;
 
 /**
  *

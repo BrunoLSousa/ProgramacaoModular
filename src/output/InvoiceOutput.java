@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package output;
 
+import account.Account;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,26 +16,30 @@ import java.util.logging.Logger;
  *
  * @author bruno
  */
-public class EventOutput {
+public class InvoiceOutput {
     
-    private List<String> events;
-    private static final String FILE_OUTPUT = "events.txt";
+    private Account[][] accounts;
+    private static final String FILE_OUTPUT = "fatura.txt";
     
-    public EventOutput(){
-        this.events = new ArrayList<>();
+    public InvoiceOutput(){
+        //empty constructor.
     }
     
-    public void addEvent(String event){
-        this.events.add(event);
+    public void setAccounts(Account[][] accounts){
+        this.accounts = accounts;
     }
     
     public void export(){
         FileWriter writer = null;
         try {
             writer = new FileWriter(new File(FILE_OUTPUT));
-            writer.write("---------- Eventos acionados ---------\n");
-            for(int i = 0; i < this.events.size(); i++){
-                writer.write("Evento " + i + ": " + this.events.get(i) + "\n");
+            writer.write("---------- Emissão de Faturas ---------\n\n");
+            for (int i = 0; i < this.accounts.length; i++) {
+                writer.write("---------- Fatura " + (i + 1) + " ---------\n");
+                for(int j = 0; j < this.accounts[i].length; j++){
+                    writer.write("Assinante " + this.accounts[i][j].getSubscriber() + ": " + this.accounts[i][j].getValueSpend() + " pulsos gastos.\n");
+                }
+                writer.write("\n");
             }
             writer.close();
         } catch (IOException ex) {

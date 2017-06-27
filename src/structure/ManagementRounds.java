@@ -25,7 +25,7 @@ import input.InputReader;
 import input.ReaderToken;
 import java.util.ArrayList;
 import java.util.List;
-import view.Output;
+import output.Output;
 
 /**
  *
