@@ -8,7 +8,7 @@ package run;
 import account.AccountByRound;
 import account.IssueAccount;
 import input.InputReader;
-import input.ReaderToken;
+import input.Token;
 import structure.ManagementNework;
 import structure.ManagementRounds;
 import output.Output;
@@ -18,14 +18,17 @@ import output.Output;
  * @author bruno
  */
 public class SystemFacade {
-    
-    public SystemFacade(){
-        //empty constructor
+
+    private String fileInput;
+    private String pathOutput;
+
+    public SystemFacade(String[] args) {
+        this.fileInput = args[0];
     }
-    
+
     public void init() {
-        InputReader input = new InputReader("input_file.txt");
-        ReaderToken token = new ReaderToken("event_token.txt");
+        InputReader input = new InputReader(fileInput);
+        Token token = new Token();
         Output output = new Output();
         ManagementNework managementNetwork = new ManagementNework(input);
         managementNetwork.init();
@@ -33,7 +36,7 @@ public class SystemFacade {
         managementRound.init(output);
         IssueAccount account = new AccountByRound(input.getIssueAccount(), managementRound.getRounds(), input.getNumberOfSubscribers(), output);
         account.issue();
-        output.export();
+        output.export(pathOutput);
     }
-    
+
 }

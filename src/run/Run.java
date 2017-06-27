@@ -10,13 +10,13 @@ package run;
  * @author allan
  */
 public class Run {
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        SystemFacade system = new SystemFacade();
+        SystemFacade system = new SystemFacade(args);
         system.init();
     }
-    
+
 }

@@ -42,10 +42,11 @@ public class SignalOutput {
         return this.signal.size() - 1;
     }
 
-    public void export() {
+    public void export(String path) {
         FileWriter writer = null;
         try {
-            writer = new FileWriter(new File(FILE_OUTPUT));
+            File file = new File(FILE_OUTPUT);
+            writer = new FileWriter(file);
             writer.write("---------- Sinais retornados ---------\n\n");
             for (int i = 0; i < this.signal.size(); i++) {
                 writer.write("---------- Evento " + i + " ---------\n");

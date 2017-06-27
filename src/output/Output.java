@@ -45,10 +45,10 @@ public class Output {
         this.account.setAccounts(accounts);
     }
     
-    public void export(){
-        this.events.export();
-        this.signal.export();
-        this.account.export();
+    public void export(String path){
+        this.events.export(path);
+        this.signal.export(path);
+        this.account.export(path);
     }
     
 }

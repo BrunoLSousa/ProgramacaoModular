@@ -30,10 +30,11 @@ public class EventOutput {
         this.events.add(event);
     }
     
-    public void export(){
+    public void export(String path){
         FileWriter writer = null;
         try {
-            writer = new FileWriter(new File(FILE_OUTPUT));
+            File file = new File(FILE_OUTPUT);
+            writer = new FileWriter(file);
             writer.write("---------- Eventos acionados ---------\n");
             for(int i = 0; i < this.events.size(); i++){
                 writer.write("Evento " + i + ": " + this.events.get(i) + "\n");

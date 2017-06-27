@@ -22,7 +22,7 @@ import event.factory.FactorySuspendLineCC;
 import event.factory.FactorySuspendLineSC;
 import event.factory.FactoryTurnOff;
 import input.InputReader;
-import input.ReaderToken;
+import input.Token;
 import java.util.ArrayList;
 import java.util.List;
 import output.Output;
@@ -36,10 +36,10 @@ public class ManagementRounds {
     private InputReader stream;
     private List<Round> rounds;
     private List<FactoryEventChain> factoryEventsChain;
-    private ReaderToken tokens;
+    private Token tokens;
     private Network network;
 
-    public ManagementRounds(InputReader stream, Network network, ReaderToken token) {
+    public ManagementRounds(InputReader stream, Network network, Token token) {
         this.stream = stream;
         this.rounds = new ArrayList<>();
         this.network = network;

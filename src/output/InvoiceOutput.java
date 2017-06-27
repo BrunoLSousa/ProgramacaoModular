@@ -29,10 +29,11 @@ public class InvoiceOutput {
         this.accounts = accounts;
     }
     
-    public void export(){
+    public void export(String path){
         FileWriter writer = null;
         try {
-            writer = new FileWriter(new File(FILE_OUTPUT));
+            File file = new File(FILE_OUTPUT);
+            writer = new FileWriter(file);
             writer.write("---------- Emissão de Faturas ---------\n\n");
             for (int i = 0; i < this.accounts.length; i++) {
                 writer.write("---------- Fatura " + (i + 1) + " ---------\n");
