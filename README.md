@@ -12,7 +12,7 @@ caminho, ou a linha já estiver ocupada, ou ainda a central está temporariament
 Além das ligações este sistema realiza o gerenciamento de criação e exclusão de novas linhas para assinantes e outras centrais. Outra 
 parte imporante para um sistema de telefonia é a capacidade de gerar contas com periodicidade para seus assinantes.
 
-##Informações importantes sobre o Sistema
+## Informações importantes sobre o Sistema
 
 ### Main Features
 
@@ -63,7 +63,7 @@ Para executar o programa, siga os seguintes passos:
 
 Pronto. Programa executado.
 
-A utilizar essa aplicação, o usuário deve fornecer um arquivo txt contendo as informações de entrada. O comando utilizado para executar 
+Ao utilizar essa aplicação, o usuário deve fornecer um arquivo txt contendo as informações de entrada. O comando utilizado para executar 
 o arquivo jar é o seguinte:
 
-- **java -jar ProgramacaoModular.jar arquivo_de_entrada**
+- java -jar ProgramacaoModular.jar arquivo_de_entrada
