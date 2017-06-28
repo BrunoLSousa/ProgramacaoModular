@@ -9,24 +9,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author bruno
+ * Abstraction for Network Component
+ * @author Bruno e Allan
  */
 public class Network {
 
     private List<Central> central;
     private List<Subscriber> subscribers;
 
+    /**
+     * Constructor method of this class
+     * 
+     */
     public Network() {
         this.central = new ArrayList<>();
         this.subscribers = new ArrayList<>();
     }
 
+    /**
+     * Build Network and create central e suscribers
+     * 
+     * @param amountCentral Amount central in the network
+     * @param amountSubscriber Amount subscriber in the network
+     */
     public void buildNetwork(int amountCentral, int amountSubscriber) {
         buildCentral(amountCentral);
         buildSubscribers(amountSubscriber);
     }
 
+    /**
+     * Create central in the network
+     * 
+     */
     private void buildCentral(int amount) {
         for (int index = 0; index < amount; index++) {
             Central newCentral = new Central(index, this);
@@ -34,6 +48,10 @@ public class Network {
         }
     }
 
+    /**
+     * Create subscriber in the network
+     * 
+     */
     private void buildSubscribers(int amount) {
         for (int index = 0; index < amount; index++) {
             Subscriber newSubscriber = new Subscriber(index);
@@ -41,6 +59,10 @@ public class Network {
         }
     }
 
+    /**
+     * Connect two central in the network
+     * 
+     */
     public boolean connectCentralToCentral(int indexA, int indexB) {
         Central centralA = this.central.get(indexA);
         Central centralB = this.central.get(indexB);
@@ -52,6 +74,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Connect subscriber to central in the network
+     * 
+     */
     public boolean connectSubscriberToCentral(int indexSubscriber, int indexCentral) {
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
@@ -63,6 +89,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Remove connection of two central in the network
+     * 
+     */
     public boolean removeCentralFromCentral(int indexCentralA, int indexCentralB) {
         Central cA = this.central.get(indexCentralA);
         Central cB = this.central.get(indexCentralB);
@@ -74,6 +104,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Remove connection of subscriber and central in the network
+     * 
+     */
     public boolean removeSubscriberFromCentral(int indexSubscriber, int indexCentral) {
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
@@ -85,6 +119,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Suspend connection of two central in the network
+     * 
+     */
     public boolean suspendCentralFromCentral(int indexCentralA, int indexCentralB) {
         Central cA = this.central.get(indexCentralA);
         Central cB = this.central.get(indexCentralB);
@@ -96,6 +134,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Suspend connection of subscriber and central in the network
+     * 
+     */
     public boolean suspendSubscriberFromCentral(int indexSubscriber, int indexCentral) {
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
@@ -107,6 +149,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Reactive connection of two central in the network
+     * 
+     */
     public boolean reactiveCentralToCentral(int indexCentralA, int indexCentralB) {
         Central cA = this.central.get(indexCentralA);
         Central cB = this.central.get(indexCentralB);
@@ -118,6 +164,10 @@ public class Network {
         return false;
     }
 
+    /**
+     * Reactive connection of subscriber and central in the network
+     * 
+     */
     public boolean reactiveSubscriberToCentral(int indexSubscriber, int indexCentral) {
         Subscriber s = this.subscribers.get(indexSubscriber);
         Central c = this.central.get(indexCentral);
@@ -128,20 +178,11 @@ public class Network {
         }
         return false;
     }
-
-//    public void printConnectionsCentral(){
-//        for(Central c : this.central){
-//            c.printCentral();
-//            c.printSubscriber();
-//        }
-//    }
-//    
-//    public void printConnectionsSubscriber(){
-//        for(Subscriber s : this.subscribers){
-//            s.printCentral();
-//        }
-//    }
     
+    /**
+     * Return subscriber by id
+     * 
+     */
     public Subscriber getSubscriberByID(int idSubscriber) {
         for (Subscriber s : this.subscribers) {
             if (s.getId() == idSubscriber) {
@@ -151,6 +192,10 @@ public class Network {
         return null;
     }
 
+    /**
+     * Return central by id
+     * 
+     */
     public Central getCentralByID(int idCentral) {
         for (Central c : this.central) {
             if (c.getId() == idCentral) {

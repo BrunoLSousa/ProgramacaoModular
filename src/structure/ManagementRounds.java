@@ -28,8 +28,8 @@ import java.util.List;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * Class responsible o manage rounds
+ * @author Bruno e Allan
  */
 public class ManagementRounds {
 
@@ -39,6 +39,13 @@ public class ManagementRounds {
     private Token tokens;
     private Network network;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param stream Reader object containing informations about network
+     * @param network network which the object will manage rounds
+     * @param token  Tokens keys 
+     */
     public ManagementRounds(InputReader stream, Network network, Token token) {
         this.stream = stream;
         this.rounds = new ArrayList<>();
@@ -49,6 +56,10 @@ public class ManagementRounds {
 
     }
 
+    /**
+     * Create and apply the events 
+     * 
+     */
     public void init(Output output) {
         Round round = new Round(0);
         for (int i = 0; i < this.stream.getEvents().size(); i++) {
@@ -66,6 +77,10 @@ public class ManagementRounds {
         }
     }
     
+    /**
+     * Create a event by means the Factory Chain
+     * 
+     */
     private EventHandle getEvent(String key, Round round, String[] content, Output output) {
         for (FactoryEventChain f : this.factoryEventsChain) {
             if (f.isCode(key)) {
@@ -75,6 +90,10 @@ public class ManagementRounds {
         return null;
     }
 
+    /**
+     * Build the factory chain
+     * 
+     */
     private void buildFactoryEventChain() {
         for (String key : this.tokens.getKeys()) {
             switch (key) {
@@ -115,10 +134,18 @@ public class ManagementRounds {
         }
     }
 
+    /**
+     * Add new factory chain
+     * 
+     */
     private void addChain(FactoryEventChain factory) {
         this.factoryEventsChain.add(factory);
     }
 
+    /**
+     * Return event token
+     * 
+     */
     private String getTokenEvent(String[] content) {
         if ((content[2].equals("a")) || (content[2].equals("c"))) {
             return content[1] + content[2];
@@ -127,6 +154,10 @@ public class ManagementRounds {
         }
     }
 
+    /**
+     * Return last event of subscriber
+     * 
+     */
     public EventHandle lastEventSubscriber(Subscriber subscriber) {
         int size = this.rounds.size();
         for (int i = (size - 1); i >= 0; i--) {
@@ -138,6 +169,10 @@ public class ManagementRounds {
         return null;
     }
 
+    /**
+     * Return calling by subscriber
+     * 
+     */
     public EventHandle searchCallingBySubscriber(Subscriber subscriber) {
         int size = this.rounds.size();
         for (int i = (size - 1); i >= 0; i--) {
@@ -149,6 +184,10 @@ public class ManagementRounds {
         return null;
     }
 
+    /**
+     * Return last calling
+     * 
+     */
     public Calling lastCalling(Subscriber subscriber) {
         int size = this.rounds.size();
         for (int i = (size - 1); i >= 0; i--) {
@@ -160,6 +199,10 @@ public class ManagementRounds {
         return null;
     }
 
+    /**
+     * Return last turnOff of a subscriber
+     * 
+     */
     public TurnOff lastTurnOff(Subscriber subscriber) {
         int size = this.rounds.size();
         for (int i = (size - 1); i >= 0; i--) {
@@ -171,10 +214,18 @@ public class ManagementRounds {
         return null;
     }
 
+    /**
+     * Return rounds
+     * 
+     */
     public List<Round> getRounds(){
         return this.rounds;
     }
     
+    /**
+     * Return last event
+     * 
+     */
     public EventHandle getlastEvent() {
         int size = this.rounds.size();
         Round round = this.rounds.get(size - 1);

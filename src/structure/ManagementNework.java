@@ -8,27 +8,38 @@ package structure;
 import input.InputReader;
 
 /**
- *
- * @author bruno
+ * Class responsible o manage network
+ * @author Bruno e Allan
  */
 public class ManagementNework {
     
     private Network network;
     private InputReader stream;
     
+    /**
+     * Constructor method of this class
+     * 
+     * @param stream Reader object containing informations about network
+     */
     public ManagementNework(InputReader stream){
         this.network = new Network();
         this.stream = stream;
     }
     
+    /**
+     * Construct central and subscribers e create connections
+     * 
+     */
     public void init(){
         this.network.buildNetwork(this.stream.getNumberOfCentral(), this.stream.getNumberOfSubscribers());
         createConnectionToCentral();
         createConnectionToSubscriber();
-//        this.network.printConnectionsCentral();
-//        this.network.printConnectionsSubscriber();
     }
     
+    /**
+     * Create connections between central
+     * 
+     */
     private void createConnectionToCentral(){
         for(String info : this.stream.getConnectionsCentral()){
             String[] brokenString = info.split(" ");
@@ -38,6 +49,10 @@ public class ManagementNework {
         }
     }
     
+    /**
+     * Create connections between subscriber and central
+     * 
+     */
     private void createConnectionToSubscriber(){
         for(String info : this.stream.getConnectionSubscribers()){
             String[] brokenString = info.split("c_a")[1].split(" ");
@@ -47,6 +62,10 @@ public class ManagementNework {
         }
     }
     
+    /**
+     * Return network
+     * 
+     */
     public Network getNetwork(){
         return this.network;
     }
