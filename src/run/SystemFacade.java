@@ -14,18 +14,26 @@ import structure.ManagementRounds;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class is a Facade Class that manage several differents modules
+ * @author Bruno e Allan
  */
 public class SystemFacade {
 
     private String fileInput;
     private String pathOutput;
 
+    /**
+     * Constructor method of this class
+     * 
+     */
     public SystemFacade(String[] args) {
         this.fileInput = args[0];
     }
 
+    /**
+     * Initialie the system
+     * 
+     */
     public void init() {
         InputReader input = new InputReader(fileInput);
         Token token = new Token();

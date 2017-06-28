@@ -6,8 +6,8 @@
 package run;
 
 /**
- *
- * @author allan
+ * This class is main class
+ * @author Bruno e Allan
  */
 public class Run {
 
