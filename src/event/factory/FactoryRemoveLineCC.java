@@ -12,18 +12,32 @@ import structure.Network;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements a factory to RemoveLineCC event
+ * @author Bruno e Allan
  */
 public class FactoryRemoveLineCC extends FactoryEventChain{
     
     private Central centralA;
     private Central centralB;
 
+     /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param network  Object of the network
+     * @param code  Token of this class
+     */
     public FactoryRemoveLineCC(ManagementRounds managementRound, Network network, String code) {
         super(managementRound, network, code);
     }
 
+     /**
+     * Create an RemoveLineCC event
+     * 
+     * @param round   Object to manage rounds
+     * @param infoEvent  content of event
+     * @param output   Object required by event
+     */
     @Override
     public EventHandle create(Round round, String[] infoEvent, Output output) {
         this.centralA = this.network.getCentralByID(Integer.parseInt(infoEvent[3]));

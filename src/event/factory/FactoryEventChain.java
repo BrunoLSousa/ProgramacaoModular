@@ -12,8 +12,8 @@ import structure.Network;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * Abstract call to implement basig services from a factory
+ * @author Bruno e Allan
  */
 public abstract class FactoryEventChain {
 
@@ -21,14 +21,28 @@ public abstract class FactoryEventChain {
     protected Network network;
     protected final String code;
     
+     /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param network  Object of the network
+     * @param code  Token of this class
+     */
     public FactoryEventChain(ManagementRounds managementRound, Network network, String code){
         this.managementRound = managementRound;
         this.network = network;
         this.code = code;
     }
     
+    /**
+     * Abstract method that the subclasses implement to create an event
+     */
     public abstract EventHandle create(Round round, String[] infoEvent, Output output);
     
+     /**
+     * Verify if this code is equals to token of this class
+     * @param code  Token for verification
+     */
     public boolean isCode(String code){
         return (code.equals(this.code));
     }

@@ -13,18 +13,32 @@ import structure.Subscriber;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements a factory to ADDLineSC event
+ * @author Bruno e Allan
  */
 public class FactoryADDLineSC extends FactoryEventChain{
     
     private Central central;
     private Subscriber subscriber;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param network  Object of the network
+     * @param code  Token of this class
+     */
     public FactoryADDLineSC(ManagementRounds managementRound, Network network, String code) {
         super(managementRound, network, code);
     }
 
+     /**
+     * Create an ADDLineSC event
+     * 
+     * @param round   Object to manage rounds
+     * @param infoEvent  content of event
+     * @param output   Object required by event
+     */
     @Override
     public EventHandle create(Round round, String[] infoEvent, Output output) {
         this.subscriber = this.network.getSubscriberByID(Integer.parseInt(infoEvent[3]));
