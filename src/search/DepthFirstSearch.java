@@ -11,8 +11,8 @@ import structure.Central;
 import structure.Subscriber;
 
 /**
- *
- * @author bruno
+ * This class is responsible to implement the DepthFirstSearch
+ * @author Bruno e Allan
  */
 public class DepthFirstSearch implements Visitor {
 
@@ -22,6 +22,12 @@ public class DepthFirstSearch implements Visitor {
     private Subscriber receiver;
     private boolean isFind;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param caller Subscriber which the DepthFirstSearch is started
+     * @param receiver Subscriber which the DepthFirstSearch is finished
+     */
     public DepthFirstSearch(Subscriber caller, Subscriber receiver) {
         this.caller = caller;
         this.receiver = receiver;
@@ -29,6 +35,9 @@ public class DepthFirstSearch implements Visitor {
         this.route = new ArrayList<>();
     }
 
+    /**
+     * Perform a search in the network and return a list with the route
+     */
     @Override
     public List<Integer> search() {
         this.isFind = false;
@@ -56,23 +65,38 @@ public class DepthFirstSearch implements Visitor {
         }
     }
 
+    /**
+     * Get the central which the subscriber is connected
+     */
     private Central getRoot(int idCaller) {
         return this.caller.getCentral();
     }
 
+    /**
+     * Add central in the route
+     */
     private void incrementRoute(int idCentral) {
         this.route.add(idCentral);
     }
 
+    /**
+     * Remove central in the route
+     */
     private void decrementRoute(int idCentral) {
         int index = this.route.size() - 1;
         this.route.remove(index);
     }
 
+    /**
+     * Add central visited
+     */
     private void addVisited(int idVisited) {
         this.visited.add(idVisited);
     }
 
+    /**
+     * Verify if central already was visited
+     */
     private boolean isVisited(int idNode) {
         for (Integer id : this.visited) {
             if (id == idNode) {

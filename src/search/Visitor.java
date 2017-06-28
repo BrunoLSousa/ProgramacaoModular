@@ -8,11 +8,14 @@ package search;
 import java.util.List;
 
 /**
- *
- * @author bruno
+ * This interface has services reference Search
+ * @author Bruno e Allan
  */
 public interface Visitor {
     
+    /**
+     * Perform a search in the network and return a list with the route
+     */
     public List<Integer> search();
     
 }
