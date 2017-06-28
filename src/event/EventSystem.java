@@ -9,13 +9,19 @@ import structure.Central;
 import structure.Subscriber;
 
 /**
- *
- * @author bruno
+ * This interface has services reference to Central
+ * @author Bruno e Allan
  */
 public interface EventSystem {
     
+    /**
+     * Verify if has a Suscriber
+     */
     public boolean hasSubscriber(Subscriber subscriber);
     
+    /**
+     * Verify if has a Central
+     */
     public boolean hasCentral(Central central);
     
 }

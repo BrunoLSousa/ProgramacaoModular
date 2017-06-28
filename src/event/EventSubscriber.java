@@ -8,11 +8,14 @@ package event;
 import structure.Subscriber;
 
 /**
- *
- * @author bruno
+ * This interface has services reference to Subscribers
+ * @author Bruno e Allan
  */
 public interface EventSubscriber {
-    
+
+    /**
+     * Verify if has a Suscriber
+     */
     public boolean hasSubscriber(Subscriber subscriber);
-    
+
 }

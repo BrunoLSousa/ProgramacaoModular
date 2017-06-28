@@ -14,8 +14,8 @@ import structure.Subscriber;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements the Calling Event between two Subscribers
+ * @author Bruno e Allan
  */
 public class Calling extends EventHandle implements EventSubscriber{
 
@@ -23,6 +23,15 @@ public class Calling extends EventHandle implements EventSubscriber{
     private Subscriber subscriberReceiver;
     private List<Integer> route;
     
+    /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param round  Round which this event was 
+     * @param subscriberCaller   Subscriber that do the calling
+     * @param subscriberReceiver   Subscriber that receive the calling
+     * @param output  Output object to generate the output informations
+     */
     public Calling(ManagementRounds managementRound, Round round, Subscriber subscriberCaller, Subscriber subscriberReceiver, Output output){
         super(managementRound, round, output);
         this.subscriberCaller = subscriberCaller;
@@ -30,6 +39,9 @@ public class Calling extends EventHandle implements EventSubscriber{
         this.route = new ArrayList<>();
     }
     
+    /**
+     * Method responsible to trigger the event
+     */ 
     @Override
     public void trigger() {
         output.addNewEvent("Iniciar Ligação entre o Assinante " + subscriberCaller.getId() + " e o Assinante " + subscriberReceiver.getId());
@@ -47,14 +59,23 @@ public class Calling extends EventHandle implements EventSubscriber{
         }
     }
     
+    /**
+     * Take phone signal
+     */ 
     private void takePhone(){
         output.addNewSignal("Telefone Retirado do Gancho...");
     }
     
+    /**
+     * Disk number signal
+     */ 
     private void diskNumber(){
         output.addNewSignal("Discando Número...");
     }
     
+    /**
+     * Search route between two Subscribers
+     */ 
     private void searchReceiver() throws NullPointerException{
         output.addNewSignal("Completando Ligação...");
         Visitor dfs = new DepthFirstSearch(this.subscriberCaller, this.subscriberReceiver);
@@ -62,6 +83,9 @@ public class Calling extends EventHandle implements EventSubscriber{
         output.addNewSignal("Rota da Ligação: " + printRoute());
     }
     
+    /**
+     * Start call
+     */ 
     private void startCall(){
         if(this.subscriberReceiver.isFree()){
             this.subscriberCaller.setCurrentCommunication(subscriberReceiver);
@@ -75,11 +99,19 @@ public class Calling extends EventHandle implements EventSubscriber{
         }
     }
 
+    /**
+     * Verify if this object has a specific subscriber
+     * 
+     * @param subscriber  Param used to compare if this subscriber exists at this object.
+     */
     @Override
     public boolean hasSubscriber(Subscriber subscriber) {
         return ((subscriber.getId() == this.subscriberCaller.getId()) || (subscriber.getId() == this.subscriberReceiver.getId()));
     }
     
+    /**
+     * Convert the integer sequence that indicate the route in a string
+     */     
     private String printRoute(){
         String r = String.valueOf(this.route.get(0));
         int index = 1;
@@ -90,14 +122,23 @@ public class Calling extends EventHandle implements EventSubscriber{
         return r;
     }
     
+    /**
+     * Return subscriber that did do the call
+     */ 
     public Subscriber getCaller(){
         return this.subscriberCaller;
     }
     
+    /**
+     * Return subscriber that received the call
+     */ 
     public Subscriber getReceiver(){
         return this.subscriberReceiver;
     }
     
+    /**
+     * Return route
+     */ 
     public List<Integer> getRouter(){
         return this.route;
     }

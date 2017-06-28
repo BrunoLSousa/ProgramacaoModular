@@ -12,8 +12,8 @@ import structure.Subscriber;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements the SuspendLine Event between two Central
+ * @author Bruno e Allan
  */
 public class SuspendLineCC extends EventHandle implements EventSystem {
 
@@ -21,6 +21,16 @@ public class SuspendLineCC extends EventHandle implements EventSystem {
     private Central centralA;
     private Central centralB;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param round  Round which this event was 
+     * @param network  Network which this event will be trigged
+     * @param centralA  Central that will be suspended
+     * @param centralB  Another central that will be suspended 
+     * @param output  Output object to generate the output informations
+     */
     public SuspendLineCC(ManagementRounds managementRound, Round round, Network network, Central centralA, Central centralB, Output output) {
         super(managementRound, round, output);
         this.network = network;
@@ -28,6 +38,9 @@ public class SuspendLineCC extends EventHandle implements EventSystem {
         this.centralB = centralB;
     }
 
+    /**
+     * Method responsible to trigger the event
+     */  
     @Override
     public void trigger() {
         output.addNewEvent("Suspender Central " + centralA.getId() + " da Central " + centralB.getId());
@@ -39,11 +52,21 @@ public class SuspendLineCC extends EventHandle implements EventSystem {
         }
     }
 
+    /**
+     * Verify if this object has a specific subscriber
+     * 
+     * @param subscriber  Param used to compare if this subscriber exists at this object.
+     */
     @Override
     public boolean hasSubscriber(Subscriber subscriber) {
         return false;
     }
 
+    /**
+     * Verify if this object has a specific central
+     * 
+     * @param central  Param used to compare if this central exists at this object.
+     */
     @Override
     public boolean hasCentral(Central central) {
         return ((central.getId() == this.centralA.getId()) || (central.getId() == this.centralB.getId()));

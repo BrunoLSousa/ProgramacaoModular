@@ -12,8 +12,8 @@ import structure.Subscriber;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements the ADDLine Event between Subscriber and Central
+ * @author Bruno e Allan
  */
 public class ADDLineSC extends EventHandle implements EventSystem {
 
@@ -21,6 +21,16 @@ public class ADDLineSC extends EventHandle implements EventSystem {
     private Central central;
     private Subscriber subscriber;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param managementRound  Object to manage rounds
+     * @param round  Round which this event was 
+     * @param network  Network which this event will be trigged
+     * @param central  Central that will be connected
+     * @param subscriber  Subscriber that will be connected 
+     * @param output  Output object to generate the output informations
+     */
     public ADDLineSC(ManagementRounds managementRound, Round round, Network network, Central central, Subscriber subscriber, Output output) {
         super(managementRound, round, output);
         this.network = network;
@@ -28,6 +38,9 @@ public class ADDLineSC extends EventHandle implements EventSystem {
         this.subscriber = subscriber;
     }
 
+    /**
+     * Method responsible to trigger the event
+     */  
     @Override
     public void trigger() {
         output.addNewEvent("Conectar Assinante " + subscriber.getId() + " à Central " + central.getId());
@@ -39,11 +52,21 @@ public class ADDLineSC extends EventHandle implements EventSystem {
         }
     }
 
+    /**
+     * Verify if this object has a specific subscriber
+     * 
+     * @param subscriber  Param used to compare if this subscriber exists at this object.
+     */
     @Override
     public boolean hasSubscriber(Subscriber subscriber) {
         return (subscriber.getId() == this.subscriber.getId());
     }
 
+    /**
+     * Verify if this object has a specific central
+     * 
+     * @param central  Param used to compare if this central exists at this object.
+     */
     @Override
     public boolean hasCentral(Central central) {
         return (central.getId() == this.central.getId());
