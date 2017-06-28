@@ -10,17 +10,25 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- *
- * @author bruno
+ * This class is responsible to create the list of event tokens
+ * @author Bruno e Allan
  */
 public class Token {
 
     private Map<String, String> tokens;
 
+    /**
+     * Constructor method of this class
+     * 
+     */
     public Token() {
         createTokens();
     }
     
+    /**
+     * Creation of events tokens
+     * 
+     */
     private void createTokens(){
         this.tokens = new HashMap<>();
         this.tokens.put("0", "Calling");
@@ -36,6 +44,10 @@ public class Token {
         this.tokens.put("6c", "ReactiveLineCC");
     }
 
+    /**
+     * Return set of tokens keys created
+     * 
+     */
     public Set<String> getKeys() {
         return this.tokens.keySet();
     }
