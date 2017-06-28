@@ -16,18 +16,29 @@ import structure.Subscriber;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * This class implements the issue account by 
+ * @author Bruno e Allan
  */
 public class AccountByRound extends IssueAccount {
 
     private int[][] issueManager;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param period  issue account period
+     * @param rounds  list of rounds
+     * @param amountSubscribers  amount of subscribers
+     * @param output  output to generate results
+     */  
     public AccountByRound(int period, List<Round> rounds, int amountSubscribers, Output output) {
         super(period, rounds, amountSubscribers, output);
         this.issueManager = new int[amountSubscribers][2];
     }
 
+    /**
+     * Abstract method that the subclasses implement to issue account
+     */
     @Override
     public void issue() {
         int issues = amountIssue();
@@ -42,9 +53,11 @@ public class AccountByRound extends IssueAccount {
             storeIssue(i);
         }
         output.setIssuesAccount(accounts);
-//        printAccounts();
     }
 
+    /**
+     * Compute pulse by round
+     */  
     private void countPulse(int idRound) {
         int amountEvents = this.rounds.get(idRound).amountEvents();
         for (int i = 0; i < amountEvents; i++) {
@@ -58,6 +71,9 @@ public class AccountByRound extends IssueAccount {
         }
     }
 
+    /**
+     * Compute calling pulse
+     */ 
     private void pulseCalling(EventHandle event, int idRound) {
         Calling call = (Calling) event;
         int valueRound = this.rounds.get(idRound).getValue();
@@ -67,6 +83,9 @@ public class AccountByRound extends IssueAccount {
         }
     }
 
+    /**
+     * Compute turnoff pulse
+     */ 
     private void pulseTurnOff(EventHandle event, int idRound) {
         TurnOff turnOff = (TurnOff) event;
         Round round = this.rounds.get(idRound);
@@ -78,6 +97,9 @@ public class AccountByRound extends IssueAccount {
         }
     }
 
+    /**
+     * Compute reconnect pulse
+     */ 
     private void pulseReconnect(EventHandle event, int idRound) {
         Reconnect reconnect = (Reconnect) event;
         int valueRound = this.rounds.get(idRound).getValue();
@@ -87,6 +109,9 @@ public class AccountByRound extends IssueAccount {
         }
     }
 
+    /**
+     * Store issue
+     */ 
     private void storeIssue(int indexIssue) {
         for (int i = 0; i < this.accounts[indexIssue].length; i++) {
             this.accounts[indexIssue][i].setValue(Double.parseDouble(String.valueOf(this.issueManager[i][1])));
@@ -94,6 +119,9 @@ public class AccountByRound extends IssueAccount {
         }
     }
 
+    /**
+     * Search calling event in rounds
+     */ 
     private EventHandle searchStartCallInRounds(int indexRound, Subscriber subscriber) {
         for (int i = indexRound; i >= 0; i--) {
             Round round = this.rounds.get(i);

@@ -10,8 +10,8 @@ import java.util.List;
 import output.Output;
 
 /**
- *
- * @author bruno
+ * Abstract Class to implement basic services from a issue account
+ * @author Bruno e Allan
  */
 public abstract class IssueAccount {
 
@@ -20,6 +20,14 @@ public abstract class IssueAccount {
     protected Account[][] accounts;
     protected Output output;
 
+    /**
+     * Constructor method of this class
+     * 
+     * @param period  issue account period
+     * @param rounds  list of rounds
+     * @param amountSubscribers  amount of subscribers
+     * @param output  output to generate results
+     */    
     public IssueAccount(int period, List<Round> rounds, int amountSubscribers, Output output) {
         this.period = period;
         this.rounds = rounds;
@@ -27,6 +35,10 @@ public abstract class IssueAccount {
         createAccounts(amountSubscribers);
     }
 
+    /**
+     * Create accounts
+     * 
+     */ 
     private void createAccounts(int amountSubscribers) {
         int issues = amountIssue();
         this.accounts = new Account[issues][amountSubscribers];
@@ -37,23 +49,20 @@ public abstract class IssueAccount {
         }
     }
 
+    /**
+     * Return amount of issues
+     * 
+     */ 
     protected int amountIssue() {
         if ((this.rounds.size() % this.period) == 0) { 
             return (this.rounds.size() / this.period);
         }
         return ((this.rounds.size() / this.period) + 1);
     }
-    
-    protected void printAccounts(){
-        int issues = amountIssue();
-        for(int i = 0; i < issues; i++){
-            System.out.println("---------- Fatura " + i + "----------");
-            for(int j = 0; j < this.accounts[i].length; j++){
-                System.out.println("Assinante " + this.accounts[i][j].getSubscriber() + ": " + this.accounts[i][j].getValueSpend() + " pulsos gastos.");
-            }
-        }
-    }
 
+    /**
+     * Abstract method that the subclasses implement to issue account
+     */
     public abstract void issue();
 
 }
