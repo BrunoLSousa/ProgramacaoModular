@@ -14,22 +14,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author bruno
+ * This class is responsible to generate the events output
+ * @author Bruno e Allan
  */
 public class EventOutput {
     
     private List<String> events;
     private static final String FILE_OUTPUT = "events.txt";
     
+    /**
+     * Constructor method of this class
+     * 
+     */
     public EventOutput(){
         this.events = new ArrayList<>();
     }
     
+    /**
+     * Add description of events
+     * 
+     */
     public void addEvent(String event){
         this.events.add(event);
     }
     
+    /**
+     * Export a txt file with all events description
+     * 
+     */
     public void export(String path){
         FileWriter writer = null;
         try {
@@ -41,12 +53,12 @@ public class EventOutput {
             }
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(EventOutput.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
         } finally {
             try {
                 writer.close();
             } catch (IOException ex) {
-                Logger.getLogger(EventOutput.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
             }
         }
     }

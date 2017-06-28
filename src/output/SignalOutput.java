@@ -16,32 +16,52 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author bruno
+ * This class is responsible to generate the signal output
+ * @author Bruno e Allan
  */
 public class SignalOutput {
 
     private Map<String, List<String>> signal;
     private static final String FILE_OUTPUT = "sinais.txt";
 
+    /**
+     * Constructor method of this class
+     * 
+     */
     public SignalOutput() {
         this.signal = new HashMap<>();
     }
 
+    /**
+     * Create a new event of signal map
+     * 
+     */
     public void addNewEvent(int indexEvent) {
         String key = "event" + indexEvent;
         this.signal.put(key, new ArrayList<String>());
     }
 
+    /**
+     * Add a new signal of signal list
+     * 
+     */
     public void addSignal(int indexEvent, String signal) {
         String key = "event" + indexEvent;
         this.signal.get(key).add(signal);
     }
 
+    /**
+     * Return current event
+     * 
+     */
     public int lastEvent() {
         return this.signal.size() - 1;
     }
 
+    /**
+     * Export a txt file with all signal description of events
+     * 
+     */
     public void export(String path) {
         FileWriter writer = null;
         try {
@@ -58,12 +78,12 @@ public class SignalOutput {
             }
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(SignalOutput.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
         } finally {
             try {
                 writer.close();
             } catch (IOException ex) {
-                Logger.getLogger(SignalOutput.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
             }
         }
     }

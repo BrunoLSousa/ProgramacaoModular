@@ -8,8 +8,8 @@ package output;
 import account.Account;
 
 /**
- *
- * @author bruno
+ * This class is responsible to generate the output.
+ * @author Bruno e Allan
  */
 public class Output {
     
@@ -18,6 +18,10 @@ public class Output {
     private SignalOutput signal;
     private int indexEvent;
     
+    /**
+     * Constructor method of this class
+     * 
+     */
     public Output(){
         this.account = new InvoiceOutput();
         this.events = new EventOutput();
@@ -25,15 +29,27 @@ public class Output {
         this.indexEvent = -1;
     }
     
+    /**
+     * Incremente the current event
+     * 
+     */
     private void incrementEvent(){
         this.indexEvent++;
     }
     
+    /**
+     * Create a new event of signal map
+     * 
+     */
     public void addNewEvent(String event){
         incrementEvent();
         this.events.addEvent(event);
     }
     
+    /**
+     * Add a new signal of signal list
+     * 
+     */
     public void addNewSignal(String signal){
         if(this.signal.lastEvent() < this.indexEvent){
             this.signal.addNewEvent(indexEvent);
@@ -41,10 +57,19 @@ public class Output {
         this.signal.addSignal(indexEvent, signal);
     }
     
+    /**
+     * Set the invoces issued
+     * 
+     * @param accounts  has the all invoices issued by each subscriber
+     */
     public void setIssuesAccount(Account[][] accounts){
         this.account.setAccounts(accounts);
     }
     
+    /**
+     * Export of output files
+     * 
+     */
     public void export(String path){
         this.events.export(path);
         this.signal.export(path);

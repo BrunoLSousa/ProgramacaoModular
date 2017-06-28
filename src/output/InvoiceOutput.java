@@ -13,22 +13,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author bruno
+ * This class is responsible to generate the invoices output
+ * @author Bruno e Allan
  */
 public class InvoiceOutput {
     
     private Account[][] accounts;
     private static final String FILE_OUTPUT = "fatura.txt";
     
+    /**
+     * Constructor method of this class
+     * 
+     */
     public InvoiceOutput(){
         //empty constructor.
     }
     
+    /**
+     * Set the invoces issued
+     * 
+     * @param accounts  has the all invoices issued by each subscriber
+     */
     public void setAccounts(Account[][] accounts){
         this.accounts = accounts;
     }
     
+    /**
+     * Export a txt file with all invoices 
+     * 
+     */
     public void export(String path){
         FileWriter writer = null;
         try {
@@ -44,12 +57,12 @@ public class InvoiceOutput {
             }
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(EventOutput.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
         } finally {
             try {
                 writer.close();
             } catch (IOException ex) {
-                Logger.getLogger(EventOutput.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println("Erro ao criar o arquivo " + FILE_OUTPUT + " !");
             }
         }
     }
